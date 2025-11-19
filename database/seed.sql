@@ -28,8 +28,8 @@ INSERT INTO signalements (titre, description, categorie_id, statut, latitude, lo
 ('Lampadaire cassé Avenue des Champs', 'Éclairage public défaillant, zone sombre le soir', 3, 'en_attente', 48.8698, 2.3078, '12 Avenue des Champs, 75008 Paris', 'Champs-Élysées', 2, 'haute'),
 ('Arbre mort Parc Monceau', 'Arbre mort qui pourrait tomber, dangereux', 4, 'resolu', 48.8800, 2.3089, 'Parc Monceau, 75008 Paris', 'Monceau', 5, 'urgente'),
 ('Banc cassé Jardin du Luxembourg', 'Banc public endommagé, à remplacer', 5, 'en_attente', 48.8462, 2.3372, 'Jardin du Luxembourg, 75006 Paris', 'Luxembourg', 3, 'basse'),
-('Feu tricolore en panne', 'Feu rouge ne fonctionne plus, risque d\'accident', 6, 'en_cours', 48.8534, 2.3488, 'Carrefour Bastille, 75012 Paris', 'Bastille', 2, 'urgente'),
-('Fuite d\'eau sur trottoir', 'Grosse fuite d\'eau continue depuis ce matin', 7, 'en_attente', 48.8606, 2.3376, '78 Boulevard Saint-Michel, 75006 Paris', 'Quartier Latin', 5, 'haute'),
+('Feu tricolore en panne', 'Feu rouge ne fonctionne plus, risque d''accident', 6, 'en_cours', 48.8534, 2.3488, 'Carrefour Bastille, 75012 Paris', 'Bastille', 2, 'urgente'),
+('Fuite d''eau sur trottoir', 'Grosse fuite d''eau continue depuis ce matin', 7, 'en_attente', 48.8606, 2.3376, '78 Boulevard Saint-Michel, 75006 Paris', 'Quartier Latin', 5, 'haute'),
 ('Travaux bruyants la nuit', 'Nuisances sonores travaux nocturnes non autorisés', 8, 'rejete', 48.8584, 2.2945, '15 Rue de la Convention, 75015 Paris', 'Convention', 3, 'normale'),
 ('Chien errant agressif', 'Chien sans propriétaire apparent, comportement agressif', 9, 'resolu', 48.8738, 2.2950, 'Bois de Boulogne, 75016 Paris', 'Bois de Boulogne', 2, 'haute'),
 ('Graffiti sur monument historique', 'Tags vandales sur bâtiment classé', 10, 'en_attente', 48.8529, 2.3499, '1 Place de la Bastille, 75004 Paris', 'Bastille', 5, 'normale');
@@ -44,11 +44,11 @@ INSERT INTO votes (signalement_id, user_id) VALUES
 
 -- Insertion de commentaires
 INSERT INTO commentaires (signalement_id, auteur_id, texte) VALUES
-(1, 3, 'J\'ai failli avoir un accident à cause de ce trou !'),
+(1, 3, 'J''ai failli avoir un accident à cause de ce trou !'),
 (1, 5, 'Très dangereux en effet, intervention urgente nécessaire'),
-(2, 2, 'Le problème persiste depuis plus d\'une semaine maintenant'),
-(3, 4, 'Zone très fréquentée le soir, c\'est un vrai problème de sécurité'),
-(6, 5, 'J\'ai appelé la police pour signaler le danger');
+(2, 2, 'Le problème persiste depuis plus d''une semaine maintenant'),
+(3, 4, 'Zone très fréquentée le soir, c''est un vrai problème de sécurité'),
+(6, 5, 'J''ai appelé la police pour signaler le danger');
 
 -- Insertion de l'historique des statuts
 INSERT INTO historique_statut (signalement_id, ancien_statut, nouveau_statut, modifie_par, commentaire) VALUES
