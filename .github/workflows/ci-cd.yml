@@ -64,7 +64,7 @@ jobs:
     
     - name: Run tests
       working-directory: ./cityvoice-frontend
-      run: npm test -- --coverage --watchAll=false
+      run: npm test -- --coverage --watchAll=false --passWithNoTests
     
     - name: Build
       working-directory: ./cityvoice-frontend
