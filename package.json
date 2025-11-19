@@ -1,0 +1,32 @@
+{
+  "name": "cityvoice-monorepo",
+  "version": "1.0.0",
+  "description": "CityVoice - Plateforme de participation citoyenne",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../cityvoice-frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd cityvoice-frontend && npm start",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd cityvoice-frontend && npm run build",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd cityvoice-frontend && npm test",
+    "test": "npm run test:backend && npm run test:frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxhus/CityVoice.git"
+  },
+  "keywords": [
+    "civic-tech",
+    "participation-citoyenne",
+    "signalement",
+    "urban-issues"
+  ],
+  "author": "CityVoice Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
