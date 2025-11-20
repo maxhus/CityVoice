@@ -92,7 +92,7 @@ jobs:
       run: npm run lint || echo "No lint script"
     
     - name: Lint Frontend
-      working-directory: ./cityvoice-frontend
+      working-directory: ./frontend
       run: npm run lint || echo "No lint script"
 
   # Déploiement (uniquement sur main)
