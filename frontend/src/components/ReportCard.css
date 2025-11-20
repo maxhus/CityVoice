@@ -1,0 +1,151 @@
+.report-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.report-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.report-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+  border-radius: 10px;
+}
+
+.report-info {
+  flex: 1;
+}
+
+.report-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.report-status {
+  margin: 0.25rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.report-time {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.report-details {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.report-icon-large {
+  font-size: 3rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.report-content {
+  flex: 1;
+}
+
+.report-subtitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.report-description {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.report-time-detail {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.report-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.report-meta {
+  display: flex;
+  gap: 2rem;
+}
+
+.report-category,
+.report-request {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.report-category strong,
+.report-request strong {
+  display: block;
+  color: #333;
+  margin-top: 0.25rem;
+}
+
+.comment-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.comment-btn:hover {
+  background: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .report-card {
+    padding: 1rem;
+  }
+
+  .report-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .report-footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .comment-btn {
+    width: 100%;
+  }
+}

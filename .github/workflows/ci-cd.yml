@@ -59,16 +59,16 @@ jobs:
         node-version: '18.x'
     
     - name: Install dependencies
-      working-directory: ./cityvoice-frontend
+      working-directory: ./frontend
       run: npm install
     
     # Tests temporairement désactivés - problème de dépendances
     # - name: Run tests
-    #   working-directory: ./cityvoice-frontend
+    #   working-directory: ./frontend
     #   run: npm test -- --coverage --watchAll=false --passWithNoTests
     
     - name: Build
-      working-directory: ./cityvoice-frontend
+      working-directory: ./frontend
       run: npm run build
 
   # Lint
