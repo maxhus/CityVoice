@@ -1,14 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import React from "react";
+import RegistrationForm from "./components/RegistrationForm";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <div>
+      <h1>CityVoice - Inscription</h1>
+      <RegistrationForm />
+    </div>
   );
 }
 
 export default App;
+
