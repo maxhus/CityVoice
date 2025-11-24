@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Home';
 import Forum from '../pages/Forum';
 import Connexion from '../pages/Connexion';
+// import Inscription from '../pages/Inscription';
 // import Dashboard from '../pages/Dashboard';
 // import ReportForm from '../pages/ReportForm';
 // import MapView from '../pages/MapView';
@@ -24,7 +25,7 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/forum" element={<Forum />} />
       <Route path="/connexion" element={<Connexion />} />
-      {/* <Route path="/inscription" element={<Register />} /> */}
+      {/* <Route path="/inscription" element={<Inscription />} /> */}
       {/* <Route 
         path="/dashboard" 
         element={
