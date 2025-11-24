@@ -1,5 +1,5 @@
 import React from "react";
-import Connexion from "./Connexion";
+import Connexion from "../frontend/src/pages/Connexion";
 
 export default function App() {
   return <Connexion />;
