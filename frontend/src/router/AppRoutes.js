@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Home';
+import Forum from '../pages/Forum';
 // import Login from '../pages/Login';
 // import Dashboard from '../pages/Dashboard';
 // import ReportForm from '../pages/ReportForm';
@@ -21,6 +22,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/forum" element={<Forum />} />
       {/* <Route path="/login" element={<Login />} /> */}
       {/* <Route path="/register" element={<Register />} /> */}
       {/* <Route 
