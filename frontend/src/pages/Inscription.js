@@ -40,7 +40,7 @@ export default function Inscription() {
     if (!formData.email_citoyen.includes("@")) {
       newErrors.email_citoyen = "Email invalide";
     }
-
+  
     if (formData.mot_de_passe_citoyen.length < 6) {
       newErrors.mot_de_passe_citoyen = "Minimum 6 caractères";
     }
