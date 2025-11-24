@@ -65,9 +65,10 @@ CityVoice/
 
 ### Backend
 - **Node.js** + **Express** - API REST
-- **MongoDB** / **PostgreSQL** - Base de données
-- **Mongoose** / **Sequelize** - ORM
+- **MySQL** (MariaDB 10.4.32) - Base de données
+- **Sequelize** - ORM
 - **JWT** - Authentification
+- **bcryptjs** - Hachage des mots de passe
 - **Multer** - Upload d'images
 - **Nodemailer** - Notifications email
 
@@ -83,7 +84,8 @@ CityVoice/
 
 ### Prérequis
 - Node.js 18+ ([télécharger](https://nodejs.org/))
-- MongoDB ou PostgreSQL
+- MySQL (MariaDB 10.4.32 ou supérieur)
+- phpMyAdmin (ou tout client MySQL)
 - Git
 
 ### 1. Cloner le dépôt
@@ -104,40 +106,53 @@ cd ../cityvoice-frontend && npm install
 
 ### 3. Configuration
 ```bash
-# Copier le fichier .env et configurer les variables
-cp .env.example .env
-# Éditer .env avec vos valeurs
-
 # Backend
 cd backend
 cp .env.example .env
-# Configurer MONGODB_URI, JWT_SECRET, etc.
+# Éditer .env avec vos paramètres MySQL :
+# DB_HOST=localhost
+# DB_USER=root
+# DB_PASSWORD=
+# DB_NAME=cityvoice
+# DB_PORT=3306
+# JWT_SECRET=votre_secret_jwt
 
 # Frontend
 cd ../cityvoice-frontend
 cp .env.example .env
-# Configurer REACT_APP_API_URL
+# REACT_APP_API_URL=http://localhost:5000
 ```
 
 ### 4. Initialiser la base de données
 ```bash
-# PostgreSQL
-psql -U votre_user -d cityvoice < database/schema.sql
-psql -U votre_user -d cityvoice < database/seed.sql
+# Importer le schéma MySQL via phpMyAdmin ou ligne de commande
+mysql -u root -p < database/gestion_signalements.sql
 
-# MongoDB : les collections seront créées automatiquement
+# Ou via phpMyAdmin :
+# 1. Ouvrir phpMyAdmin
+# 2. Importer le fichier database/gestion_signalements.sql
+# 3. La base 'cityvoice' sera créée automatiquement avec :
+#    - 7 tables (citoyen, signalement, administrateur, etc.)
+#    - Données de test (5 citoyens, 8 signalements)
 ```
 
 ### 5. Lancer l'application
 
 #### Mode développement
 ```bash
-# Lancer backend et frontend simultanément
-npm run dev
+# Lancer le backend
+cd backend
+npm start              # Backend sur http://localhost:5000
 
-# Ou séparément
-npm run dev:backend    # Backend sur http://localhost:5000
-npm run dev:frontend   # Frontend sur http://localhost:3000
+# Lancer le frontend (dans un autre terminal)
+cd cityvoice-frontend
+npm start              # Frontend sur http://localhost:3001
+```
+
+#### Compte de test
+```
+Email: pierre.martin@example.com
+Mot de passe: password123
 ```
 
 ---
@@ -153,16 +168,23 @@ npm run dev:frontend   # Frontend sur http://localhost:3000
 ## 🎯 Fonctionnalités
 
 ### Niveau Basique ✅
-- ✅ Signalement avec 10 catégories
-- ✅ Carte interactive des incidents
-- ✅ Suivi par statut (En attente, En cours, Résolu)
-- ✅ Upload d'images
-- ✅ Géolocalisation
+- ✅ Base de données MySQL avec 7 tables
+- ✅ API REST complète (signalements, citoyens, authentification)
+- ✅ Authentification JWT avec bcrypt
+- ✅ Pages Connexion et Inscription fonctionnelles
+- ✅ Carte interactive des incidents (Leaflet)
+- ✅ Forum de discussion
+- ✅ Signalement avec catégories (Voirie, Propreté, Éclairage, etc.)
+- ✅ Suivi par statut (Nouveau, En cours, Résolu, Rejeté)
+- ✅ Géolocalisation automatique
 
 ### Niveau Intermédiaire 🚧
+- 🚧 Dashboard utilisateur (mes signalements)
+- 🚧 Upload d'images pour les signalements
 - 🚧 Vote communautaire de priorisation
 - 🚧 Dashboard analytics par quartier
-- 🚧 Système de notifications automatiques
+- 🚧 Système de notifications en temps réel
+- 🚧 Routes protégées avec authentification
 
 ### Niveau Avancé 📋
 - 📋 IA de catégorisation automatique
@@ -189,14 +211,29 @@ npm test
 ## 📦 Build & Déploiement
 
 ```bash
-# Build backend
-npm run build:backend
+# Build frontend pour production
+cd cityvoice-frontend
+npm run build          # Crée le dossier build/ optimisé
 
-# Build frontend
-npm run build:frontend
-
+# Le backend n'a pas besoin de build (Node.js)
 # Déploiement automatique via GitHub Actions sur push vers main
 ```
+
+## 📡 API Endpoints
+
+### Signalements
+- `GET /api/signalements` - Liste tous les signalements
+- `GET /api/signalements/:id` - Détails d'un signalement
+- `GET /api/signalements/stats` - Statistiques par statut/catégorie
+- `POST /api/signalements` - Créer un signalement (auth requise)
+- `PUT /api/signalements/:id` - Modifier un signalement
+- `DELETE /api/signalements/:id` - Supprimer un signalement
+
+### Authentification
+- `POST /api/citoyens/inscription` - Créer un compte
+- `POST /api/citoyens/connexion` - Se connecter (retourne un token JWT)
+- `GET /api/citoyens/profil/:id` - Voir le profil
+- `PUT /api/citoyens/profil/:id` - Modifier le profil
 
 ---
 
