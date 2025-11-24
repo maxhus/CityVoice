@@ -18,7 +18,7 @@ const ProtectedRoute = ({ children }) => {
 
   return user ? children : <Navigate to="/connexion" />;
 };
-
+  
 const AppRoutes = () => {
   return (
     <Routes>
