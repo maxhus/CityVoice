@@ -1,16 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Connexion.css";
 
 export default function Connexion() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailError("");
     setPasswordError("");
+    setGeneralError("");
 
     let ok = true;
 
@@ -26,7 +32,31 @@ export default function Connexion() {
 
     if (!ok) return;
 
-    alert("Connexion réussie !");
+    setLoading(true);
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/citoyens/connexion", {
+        email_citoyen: email,
+        mot_de_passe_citoyen: password
+      });
+
+      if (response.data.success) {
+        // Stocker le token et les infos utilisateur
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.data));
+        
+        alert("Connexion réussie !");
+        navigate("/");
+      }
+    } catch (error) {
+      if (error.response?.data?.message) {
+        setGeneralError(error.response.data.message);
+      } else {
+        setGeneralError("Erreur de connexion. Veuillez réessayer.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,6 +69,19 @@ export default function Connexion() {
         </div>
 
         <form onSubmit={handleSubmit}>
+          {generalError && (
+            <div className="error-banner" style={{ 
+              background: '#fee', 
+              color: '#c33', 
+              padding: '10px', 
+              borderRadius: '5px', 
+              marginBottom: '15px',
+              textAlign: 'center'
+            }}>
+              {generalError}
+            </div>
+          )}
+
           <div className="form-group">
             <label>Adresse email</label>
             <input
@@ -64,8 +107,8 @@ export default function Connexion() {
             </button>
           </div>
 
-          <button type="submit" className="btn-primary">
-            Se connecter
+          <button type="submit" className="btn-primary" disabled={loading}>
+            {loading ? "Connexion en cours..." : "Se connecter"}
           </button>
         </form>
 

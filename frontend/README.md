@@ -27,10 +27,20 @@ frontend/
 │   │   ├── MapView.js      # Carte interactive Leaflet
 │   │   ├── MapView.css
 │   │   ├── ReportCard.js   # Carte de signalement
-│   │   └── ReportCard.css
+│   │   ├── ReportCard.css
+│   │   ├── ForumCard.js    # Carte de discussion forum
+│   │   ├── ForumCard.css
+│   │   ├── CategoryFilter.js # Filtres catégories forum
+│   │   └── CategoryFilter.css
 │   ├── pages/              # Pages principales
 │   │   ├── Home.js         # Page d'accueil
-│   │   └── Home.css
+│   │   ├── Home.css
+│   │   ├── Forum.js        # Page forum discussions
+│   │   ├── Forum.css
+│   │   ├── Connexion.js    # Page connexion
+│   │   ├── Connexion.css
+│   │   ├── Inscription.js  # Page inscription
+│   │   └── Inscription.css
 │   ├── services/           # Appels API
 │   │   └── reportService.js
 │   ├── hooks/              # Custom hooks
@@ -222,6 +232,161 @@ const report = {
 
 ---
 
+### 5. ForumCard
+**Fichier**: `src/components/ForumCard.js`
+
+Carte d'affichage d'une discussion forum.
+
+**Props**:
+```typescript
+{
+  discussion: {
+    id: number,
+    title: string,
+    category: string,
+    author: string,
+    avatar: string,
+    time: string,
+    replies: number,
+    views: number,
+    likes: number
+  }
+}
+```
+
+**Usage**:
+```jsx
+import ForumCard from '../components/ForumCard';
+
+<ForumCard discussion={{
+  id: 1,
+  title: 'Comment améliorer les pistes cyclables ?',
+  category: 'Transport',
+  author: 'Marie Dupont',
+  replies: 12,
+  views: 245,
+  likes: 8
+}} />
+```
+
+---
+
+### 6. CategoryFilter
+**Fichier**: `src/components/CategoryFilter.js`
+
+Filtres de catégories pour le forum.
+
+**Props**:
+```typescript
+{
+  categories: Array<{id: string, label: string, color: string}>,
+  activeCategory: string,
+  onCategoryChange: (categoryId: string) => void
+}
+```
+
+**Usage**:
+```jsx
+import CategoryFilter from '../components/CategoryFilter';
+
+const categories = [
+  { id: 'infrastructure', label: 'Infrastructure', color: '#3b82f6' },
+  { id: 'environnement', label: 'Environnement', color: '#10b981' }
+];
+
+<CategoryFilter 
+  categories={categories}
+  activeCategory="all"
+  onCategoryChange={(cat) => console.log(cat)}
+/>
+```
+
+---
+
+## 📄 Pages
+
+### 1. Home
+**Fichier**: `src/pages/Home.js`
+
+Page d'accueil avec carte interactive et liste des signalements.
+
+**Fonctionnalités**:
+- Header de navigation
+- Barre de recherche
+- Carte Leaflet avec marqueurs
+- Liste de signalements (ReportCard)
+- Design responsive
+
+---
+
+### 2. Forum
+**Fichier**: `src/pages/Forum.js`
+
+Page des discussions communautaires.
+
+**Fonctionnalités**:
+- Hero section avec titre et bouton CTA
+- Filtres par catégories (CategoryFilter)
+- Liste de discussions (ForumCard)
+- 7 discussions mockées
+- 5 catégories: Infrastructure, Environnement, Transport, Sécurité, Autre
+
+---
+
+### 3. Connexion
+**Fichier**: `src/pages/Connexion.js`
+
+Page de connexion utilisateur.
+
+**Fonctionnalités**:
+- Formulaire email/mot de passe
+- Validation des champs
+- Connexion à l'API backend (`POST /api/citoyens/connexion`)
+- Stockage du token JWT dans localStorage
+- Gestion des erreurs d'authentification
+- Lien vers la page d'inscription
+- Redirection après connexion réussie
+
+**API Endpoint**:
+```javascript
+POST http://localhost:5000/api/citoyens/connexion
+Body: {
+  email_citoyen: "marie.dupont@example.com",
+  mot_de_passe_citoyen: "password123"
+}
+```
+
+---
+
+### 4. Inscription
+**Fichier**: `src/pages/Inscription.js`
+
+Page d'inscription nouveaux utilisateurs.
+
+**Fonctionnalités**:
+- Formulaire: nom, prénom, email, mot de passe, confirmation
+- Validation complète des champs
+- Vérification de correspondance des mots de passe
+- Connexion à l'API backend (`POST /api/citoyens/inscription`)
+- Création automatique du compte et connexion
+- Stockage du token JWT
+- Gestion des erreurs (email déjà utilisé, etc.)
+- Lien vers la page de connexion
+- Redirection après inscription réussie
+
+**API Endpoint**:
+```javascript
+POST http://localhost:5000/api/citoyens/inscription
+Body: {
+  nom_citoyen: "Dupont",
+  prenom_citoyen: "Marie",
+  email_citoyen: "marie.dupont@example.com",
+  mot_de_passe_citoyen: "password123"
+}
+```
+
+---
+
 ## 🎣 Hooks Personnalisés
 
 ### useGeoLocation
@@ -330,6 +495,39 @@ REACT_APP_API_URL=http://localhost:5000/api
 
 ## 🔐 Authentification
 
+### Flux d'authentification
+
+1. **Inscription** (`/inscription`):
+   - L'utilisateur remplit le formulaire
+   - Envoi des données à `POST /api/citoyens/inscription`
+   - Backend crée le compte et retourne un token JWT
+   - Token stocké dans `localStorage`
+   - Redirection vers la page d'accueil
+
+2. **Connexion** (`/connexion`):
+   - L'utilisateur saisit email/mot de passe
+   - Envoi à `POST /api/citoyens/connexion`
+   - Backend vérifie les credentials et retourne un token
+   - Token stocké dans `localStorage`
+   - Redirection vers la page d'accueil
+
+3. **Stockage du token**:
+```javascript
+// Après connexion/inscription réussie
+localStorage.setItem('token', response.data.token);
+localStorage.setItem('user', JSON.stringify(response.data.data));
+
+// Pour les requêtes authentifiées
+const token = localStorage.getItem('token');
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+```
+
+4. **Déconnexion**:
+```javascript
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+```
+
 ### AuthContext
 **Fichier**: `src/context/AuthContext.js`
 
@@ -375,12 +573,12 @@ Configuration des routes de l'application.
 
 **Routes disponibles**:
 ```javascript
-/                # Page d'accueil
-/login           # Connexion (à implémenter)
-/register        # Inscription (à implémenter)
-/dashboard       # Dashboard utilisateur (protégé)
-/report/new      # Nouveau signalement (protégé)
-/map             # Vue carte complète
+/                # Page d'accueil (Home)
+/forum           # Forum discussions
+/connexion       # Connexion utilisateur
+/inscription     # Inscription nouveau compte
+/dashboard       # Dashboard utilisateur (protégé, à implémenter)
+/report/new      # Nouveau signalement (protégé, à implémenter)
 ```
 
 **Routes protégées**:
@@ -522,15 +720,21 @@ Le serveur de développement recharge automatiquement les changements.
 
 ## 📝 TODO / Fonctionnalités futures
 
-- [ ] Page de connexion/inscription
+- [x] Page de connexion
+- [x] Page d'inscription
+- [x] Page Forum avec discussions
+- [x] Intégration API backend (connexion/inscription)
 - [ ] Dashboard utilisateur
 - [ ] Formulaire de création de signalement
+- [ ] Page de profil utilisateur
 - [ ] Filtres avancés (catégorie, statut, date)
 - [ ] Notifications en temps réel
 - [ ] Mode sombre
 - [ ] PWA (Progressive Web App)
 - [ ] Internationalisation (i18n)
 - [ ] Accessibilité (ARIA)
+- [ ] Page détails d'un signalement
+- [ ] Gestion des discussions forum (créer, répondre, like)
 
 ---
 
