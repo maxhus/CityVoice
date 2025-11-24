@@ -1,23 +1,37 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const { connectDB } = require('./config/db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Connexion à la base de données
+connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
-// TODO: Importer les routes ici
-// const signalementRoutes = require('./routes/signalementRoutes');
-// app.use('/api/signalements', signalementRoutes);
+// Importer les routes
+const signalementRoutes = require('./routes/signalementRoutes');
+const citoyenRoutes = require('./routes/citoyenRoutes');
+
+// Routes API
+app.use('/api/signalements', signalementRoutes);
+app.use('/api/citoyens', citoyenRoutes);
 
 // Route de test
 app.get('/', (req, res) => {
-  res.json({ message: 'Bienvenue sur l\'API CityVoice' });
+  res.json({ 
+    message: 'Bienvenue sur l\'API CityVoice',
+    version: '1.0.0',
+    endpoints: {
+      signalements: '/api/signalements',
+      citoyens: '/api/citoyens'
+    }
+  });
 });
 
 // Gestion des erreurs

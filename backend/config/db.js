@@ -1,18 +1,38 @@
-// Configuration de la base de données
-// Exemple avec MongoDB (Mongoose)
-const mongoose = require('mongoose');
+// Configuration de la base de données MySQL avec Sequelize
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize(
+  process.env.DB_NAME || 'gestion_signalements',
+  process.env.DB_USER || 'root',
+  process.env.DB_PASSWORD || '',
+  {
+    host: process.env.DB_HOST || '127.0.0.1',
+    dialect: 'mysql',
+    port: process.env.DB_PORT || 3306,
+    logging: process.env.NODE_ENV === 'development' ? console.log : false,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  }
+);
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log(`✅ MongoDB connecté: ${conn.connection.host}`);
+    await sequelize.authenticate();
+    console.log('✅ MySQL connecté avec succès');
+    
+    // Synchroniser les modèles (en développement uniquement)
+    if (process.env.NODE_ENV === 'development') {
+      await sequelize.sync({ alter: false });
+      console.log('✅ Modèles synchronisés');
+    }
   } catch (error) {
-    console.error(`❌ Erreur de connexion MongoDB: ${error.message}`);
+    console.error(`❌ Erreur de connexion MySQL: ${error.message}`);
     process.exit(1);
   }
 };
 
-module.exports = connectDB;
+module.exports = { sequelize, connectDB };
