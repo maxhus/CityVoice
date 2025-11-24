@@ -1,22 +1,22 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Forum from '../pages/Forum';
 // import Login from '../pages/Login';
 // import Dashboard from '../pages/Dashboard';
 // import ReportForm from '../pages/ReportForm';
 // import MapView from '../pages/MapView';
-import { useAuth } from '../context/AuthContext';
+// import { useAuth } from '../context/AuthContext';
 
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+// const ProtectedRoute = ({ children }) => {
+//   const { user, loading } = useAuth();
 
-  if (loading) {
-    return <div>Chargement...</div>;
-  }
+//   if (loading) {
+//     return <div>Chargement...</div>;
+//   }
 
-  return user ? children : <Navigate to="/login" />;
-};
+//   return user ? children : <Navigate to="/login" />;
+// };
 
 const AppRoutes = () => {
   return (
