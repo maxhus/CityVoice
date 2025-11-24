@@ -1,12 +1,6 @@
-import Register from "./Register";
+import React from "react";
+import Connexion from "./Connexion";
 
-function App() {
-  return (
-    <div>
-      <Register />
-    </div>
-  );
+export default function App() {
+  return <Connexion />;
 }
-
-export default App;
-
