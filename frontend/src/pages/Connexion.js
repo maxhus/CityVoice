@@ -59,7 +59,9 @@ export default function Connexion() {
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && <p className="error">{passwordError}</p>}
-            <a href="#" className="forgot-password">Mot de passe oublié ?</a>
+            <button type="button" className="forgot-password" onClick={() => alert('Fonctionnalité à venir')}>
+              Mot de passe oublié ?
+            </button>
           </div>
 
           <button type="submit" className="btn-primary">

@@ -145,8 +145,13 @@ input::placeholder {
   margin-top: 8px;
   font-size: 13px;
   color: #666;
-  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   transition: color 0.3s;
+  width: auto;
+  margin-left: auto;
 }
 
 .forgot-password:hover {
