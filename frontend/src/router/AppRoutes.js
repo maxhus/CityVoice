@@ -8,17 +8,17 @@ import Signalement from "../pages/Signalement";
 // import Dashboard from '../pages/Dashboard';
 // import ReportForm from '../pages/ReportForm';
 // import MapView from '../pages/MapView';
-import { useAuth } from "../context/AuthContext";
+// import { useAuth } from "../context/AuthContext";
 
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+// const ProtectedRoute = ({ children }) => {
+//   const { user, loading } = useAuth();
 
-  if (loading) {
-    return <div>Chargement...</div>;
-  }
+//   if (loading) {
+//     return <div>Chargement...</div>;
+//   }
 
-  return user ? children : <Navigate to="/connexion" />;
-};
+//   return user ? children : <Navigate to="/connexion" />;
+// };
 
 const AppRoutes = () => {
   return (
