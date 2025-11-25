@@ -1,12 +1,13 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from '../pages/Home';
-import Forum from '../pages/Forum';
-import Connexion from '../pages/Connexion';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "../pages/Home";
+import Forum from "../pages/Forum";
+import Connexion from "../pages/Connexion";
+import Signalement from "../pages/Signalement";
 // import Dashboard from '../pages/Dashboard';
 // import ReportForm from '../pages/ReportForm';
 // import MapView from '../pages/MapView';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -24,6 +25,8 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/forum" element={<Forum />} />
       <Route path="/connexion" element={<Connexion />} />
+      <Route path="/signalement" element={<Signalement />} />
+
       {/* <Route path="/inscription" element={<Register />} /> */}
       {/* <Route 
         path="/dashboard" 
