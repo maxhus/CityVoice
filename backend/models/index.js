@@ -6,6 +6,7 @@ const Administrateur = require('./Administrateur');
 const ServiceMunicipal = require('./ServiceMunicipal');
 const Notification = require('./Notification');
 const HistoriqueStatut = require('./HistoriqueStatut');
+const Commentaire = require('./Commentaire');
 
 // Relations Citoyen <-> Signalement
 Citoyen.hasMany(Signalement, {
@@ -57,6 +58,36 @@ HistoriqueStatut.belongsTo(Administrateur, {
   as: 'administrateur'
 });
 
+// Relations Signalement <-> Commentaire
+Signalement.hasMany(Commentaire, {
+  foreignKey: 'id_signalement',
+  as: 'commentaires'
+});
+Commentaire.belongsTo(Signalement, {
+  foreignKey: 'id_signalement',
+  as: 'signalement'
+});
+
+// Relations Citoyen <-> Commentaire
+Citoyen.hasMany(Commentaire, {
+  foreignKey: 'id_citoyen',
+  as: 'commentaires'
+});
+Commentaire.belongsTo(Citoyen, {
+  foreignKey: 'id_citoyen',
+  as: 'citoyen'
+});
+
+// Relations Administrateur <-> Commentaire
+Administrateur.hasMany(Commentaire, {
+  foreignKey: 'id_admin',
+  as: 'commentaires'
+});
+Commentaire.belongsTo(Administrateur, {
+  foreignKey: 'id_admin',
+  as: 'administrateur'
+});
+
 module.exports = {
   sequelize,
   Citoyen,
@@ -64,5 +95,6 @@ module.exports = {
   Administrateur,
   ServiceMunicipal,
   Notification,
-  HistoriqueStatut
+  HistoriqueStatut,
+  Commentaire
 };

@@ -17,10 +17,12 @@ app.use(express.urlencoded({ extended: true }));
 // Importer les routes
 const signalementRoutes = require('./routes/signalementRoutes');
 const citoyenRoutes = require('./routes/citoyenRoutes');
+const commentaireRoutes = require('./routes/commentaireRoutes');
 
 // Routes API
 app.use('/api/signalements', signalementRoutes);
 app.use('/api/citoyens', citoyenRoutes);
+app.use('/api/commentaires', commentaireRoutes);
 
 // Route de test
 app.get('/', (req, res) => {
@@ -29,7 +31,8 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       signalements: '/api/signalements',
-      citoyens: '/api/citoyens'
+      citoyens: '/api/citoyens',
+      commentaires: '/api/commentaires'
     }
   });
 });

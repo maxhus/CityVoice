@@ -5,6 +5,7 @@ import Forum from "../pages/Forum";
 import Connexion from "../pages/Connexion";
 import Inscription from "../pages/Inscription";
 import Signalement from "../pages/Signalement";
+import SignalementDetails from "../pages/SignalementDetails";
 // import Dashboard from '../pages/Dashboard';
 // import ReportForm from '../pages/ReportForm';
 // import MapView from '../pages/MapView';
@@ -28,6 +29,7 @@ const AppRoutes = () => {
       <Route path="/connexion" element={<Connexion />} />
       <Route path="/inscription" element={<Inscription />} />
       <Route path="/signalement" element={<Signalement />} />
+      <Route path="/signalement/:id" element={<SignalementDetails />} />
       {/* <Route 
         path="/dashboard" 
         element={
