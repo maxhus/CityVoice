@@ -89,13 +89,13 @@ exports.getSignalementById = async (req, res) => {
 // @access  Private (authentifié)
 exports.createSignalement = async (req, res) => {
   try {
-    const { description, categorie, id_citoyen } = req.body;
+    const { titre, description, categorie, latitude, longitude, adresse, quartier, priorite, id_citoyen } = req.body;
 
     // Validation
-    if (!description || !categorie || !id_citoyen) {
+    if (!titre || !description || !categorie || !latitude || !longitude || !id_citoyen) {
       return res.status(400).json({
         success: false,
-        message: 'Veuillez fournir tous les champs requis'
+        message: 'Veuillez fournir tous les champs requis (titre, description, categorie, latitude, longitude, id_citoyen)'
       });
     }
 
@@ -109,10 +109,16 @@ exports.createSignalement = async (req, res) => {
     }
 
     const signalement = await Signalement.create({
+      titre,
       description,
       categorie,
+      latitude,
+      longitude,
+      adresse: adresse || null,
+      quartier: quartier || null,
+      priorite: priorite || 'normale',
       id_citoyen,
-      statut: 'Nouveau'
+      statut: 'en_attente'
     });
 
     // Créer l'historique initial

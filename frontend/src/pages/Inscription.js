@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 import "./Connexion.css";
 
 export default function Inscription() {
   const navigate = useNavigate();
+  const { register } = useAuth();
   const [formData, setFormData] = useState({
     nom_citoyen: "",
     prenom_citoyen: "",
@@ -61,21 +62,15 @@ export default function Inscription() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/citoyens/inscription", {
-        nom_citoyen: formData.nom_citoyen,
-        prenom_citoyen: formData.prenom_citoyen,
-        email_citoyen: formData.email_citoyen,
-        mot_de_passe_citoyen: formData.mot_de_passe_citoyen
+      await register({
+        nom: formData.nom_citoyen,
+        prenom: formData.prenom_citoyen,
+        email: formData.email_citoyen,
+        password: formData.mot_de_passe_citoyen
       });
-
-      if (response.data.success) {
-        // Stocker le token
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.data));
-        
-        alert("Inscription réussie ! Bienvenue sur CityVoice");
-        navigate("/");
-      }
+      
+      alert("Inscription réussie ! Bienvenue sur CityVoice");
+      navigate("/");
     } catch (error) {
       if (error.response?.data?.message) {
         setErrors({ general: error.response.data.message });
@@ -91,7 +86,7 @@ export default function Inscription() {
     <div className="login-container">
       <div className="login-card">
         <button 
-          onClick={() => navigate(-1)} 
+          onClick={() => navigate("/")} 
           className="back-button"
         >
           ←

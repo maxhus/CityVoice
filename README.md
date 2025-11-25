@@ -159,9 +159,22 @@ Mot de passe: password123
 
 ## 📚 Documentation
 
-- [Architecture technique](docs/architecture.md)
-- [Spécifications API](docs/api-specs.md)
-- [Guide de contribution](CONTRIBUTING.md) (à venir)
+### 📖 Documentation Complète
+
+- 🚀 **[Guide de Démarrage Rapide](docs/QUICK_START.md)** - Installation et configuration en 10 minutes
+- 📊 **[État du Projet](docs/PROJECT_STATUS.md)** - Fonctionnalités implémentées et roadmap
+- 🗓️ **[Roadmap de Développement](docs/DEVELOPMENT_ROADMAP.md)** - Plan détaillé par sprint
+- 📐 **[Diagrammes UML](docs/UML_DIAGRAMS.md)** - Architecture et workflows complets
+- 🏗️ **[Architecture Technique](docs/architecture.md)** - Stack et composants
+- 📡 **[Spécifications API](docs/api-specs.md)** - Documentation des endpoints
+- 🤝 **[Guide de Contribution](CONTRIBUTING.md)** (à venir)
+
+### 🎯 Par où commencer ?
+
+1. **Nouveau sur le projet ?** → Lisez le [Guide de Démarrage Rapide](docs/QUICK_START.md)
+2. **Développeur ?** → Consultez la [Roadmap de Développement](docs/DEVELOPMENT_ROADMAP.md)
+3. **Architecte ?** → Étudiez les [Diagrammes UML](docs/UML_DIAGRAMS.md)
+4. **Chef de projet ?** → Voir l'[État du Projet](docs/PROJECT_STATUS.md)
 
 ---
 
