@@ -1,14 +1,14 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from '../pages/Home';
-import Forum from '../pages/Forum';
-import Connexion from '../pages/Connexion';
-import Inscription from '../pages/Inscription';
-import Signalement from '../pages/Signalement';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "../pages/Home";
+import Forum from "../pages/Forum";
+import Connexion from "../pages/Connexion";
+import Inscription from "../pages/Inscription";
+import Signalement from "../pages/Signalement";
 // import Dashboard from '../pages/Dashboard';
 // import ReportForm from '../pages/ReportForm';
 // import MapView from '../pages/MapView';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
