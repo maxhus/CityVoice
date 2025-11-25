@@ -90,6 +90,15 @@ export default function Inscription() {
   return (
     <div className="login-container">
       <div className="login-card">
+        <button 
+          type="button" 
+          className="back-button"
+          onClick={() => navigate("/")}
+          aria-label="Retour à l'accueil"
+        >
+          ← Retour
+        </button>
+
         <div className="login-header">
           <div className="login-logo">🏛️</div>
           <h1>Créer un compte</h1>
