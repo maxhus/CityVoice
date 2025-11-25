@@ -70,10 +70,15 @@ exports.getSignalementById = async (req, res) => {
       });
     }
 
-    res.json({
-      success: true,
-      data: signalement
-    });
+    // Transformer les données pour ajouter les alias nom, prenom, email
+    const signalementData = signalement.toJSON();
+    if (signalementData.citoyen) {
+      signalementData.citoyen.nom = signalementData.citoyen.nom_citoyen;
+      signalementData.citoyen.prenom = signalementData.citoyen.prenom_citoyen;
+      signalementData.citoyen.email = signalementData.citoyen.email_citoyen;
+    }
+
+    res.json(signalementData);
   } catch (error) {
     console.error('Erreur getSignalementById:', error);
     res.status(500).json({

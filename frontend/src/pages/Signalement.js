@@ -70,20 +70,21 @@ export default function Signalement() {
       setError("La description est obligatoire");
       return;
     }
-    if (!latitude || !longitude) {
-      setError("La géolocalisation est obligatoire");
-      return;
-    }
 
     try {
       setLoading(true);
+
+      // Si la géolocalisation n'est pas disponible ou pas encore chargée,
+      // utiliser des coordonnées par défaut (Bruxelles centre - Grand-Place)
+      const lat = latitude ? parseFloat(latitude) : 50.8503;
+      const lng = longitude ? parseFloat(longitude) : 4.3517;
 
       const signalementData = {
         titre: titre.trim(),
         description: description.trim(),
         categorie,
-        latitude: parseFloat(latitude),
-        longitude: parseFloat(longitude),
+        latitude: lat,
+        longitude: lng,
         adresse: adresse.trim() || "Non renseignée",
         quartier: quartier.trim() || "Non renseigné",
         id_citoyen: user.id_citoyen
@@ -146,15 +147,10 @@ export default function Signalement() {
               <MapView reports={mockReports} showNewReportButton={false} />
             </div>
 
-            <div style={{ marginTop: '1rem', fontSize: '0.9rem' }}>
+            <div style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#666' }}>
               {location.loaded && !location.error && (
-                <p style={{ color: 'green' }}>
-                  📍 Position détectée: {location.coordinates.lat.toFixed(4)}, {location.coordinates.lng.toFixed(4)}
-                </p>
-              )}
-              {location.error && (
-                <p style={{ color: 'orange' }}>
-                  ⚠️ Géolocalisation non disponible. Saisissez manuellement.
+                <p style={{ color: 'green', margin: 0 }}>
+                  ✓ Position géographique détectée automatiquement
                 </p>
               )}
             </div>
@@ -223,27 +219,6 @@ export default function Signalement() {
               onChange={(e) => setQuartier(e.target.value)}
             />
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
-              <input
-                type="number"
-                step="any"
-                placeholder="Latitude *"
-                className="input"
-                value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
-                required
-              />
-              <input
-                type="number"
-                step="any"
-                placeholder="Longitude *"
-                className="input"
-                value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
-                required
-              />
-            </div>
-
             <button 
               onClick={handleSubmit} 
               className="btn-signalement"
@@ -254,7 +229,7 @@ export default function Signalement() {
             </button>
 
             <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.5rem' }}>
-              * Champs obligatoires
+              * Champs obligatoires : Titre, Catégorie et Description
             </p>
           </div>
         </div>

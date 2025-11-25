@@ -24,7 +24,7 @@ function Home() {
       if (response.success) {
         // Transformer les données pour correspondre au format attendu par les composants
         const transformedReports = response.data.map(report => ({
-          id: report.id_signalement,
+          id_signalement: report.id_signalement,
           title: report.titre,
           category: report.categorie,
           status: report.statut,
@@ -105,7 +105,7 @@ function Home() {
           <div className="reports-list">
             {filteredReports.length > 0 ? (
               filteredReports.map((report) => (
-                <ReportCard key={report.id} report={report} />
+                <ReportCard key={report.id_signalement} report={report} />
               ))
             ) : (
               <p style={{ textAlign: 'center', padding: '2rem' }}>
