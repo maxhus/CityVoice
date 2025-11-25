@@ -1,8 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Header.css';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./Header.css";
 
 const Header = () => {
+  const location = useLocation();
+
   return (
     <header className="header">
       <div className="header-container">
@@ -12,14 +14,38 @@ const Header = () => {
         </Link>
 
         <nav className="nav">
-          <Link to="/signalement" className="nav-link">Signalement</Link>
-          <Link to="/forum" className="nav-link">Forum</Link>
+          <Link
+            to="/"
+            className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+          >
+            Accueil
+          </Link>
+          <Link
+            to="/forum"
+            className={`nav-link ${
+              location.pathname === "/forum" ? "active" : ""
+            }`}
+          >
+            Forum
+          </Link>
+          <Link
+            to="/signalement"
+            className={`nav-link ${
+              location.pathname === "/signalement" ? "active" : ""
+            }`}
+          >
+            Signalement
+          </Link>
         </nav>
 
         <div className="header-actions">
           <button className="menu-btn">☰</button>
-          <Link to="/inscription" className="btn-inscription">inscription</Link>
-          <Link to="/connexion" className="btn-connexion">connexion</Link>
+          <Link to="/inscription" className="btn-inscription">
+            Inscription
+          </Link>
+          <Link to="/connexion" className="btn-connexion">
+            Connexion
+          </Link>
         </div>
       </div>
     </header>

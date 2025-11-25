@@ -17,6 +17,7 @@
   max-width: 450px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 /* Logo et titre */
@@ -156,4 +157,31 @@ input::placeholder {
 
 .forgot-password:hover {
   color: #667eea;
+}
+
+/* Bouton de retour */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 8px 12px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.back-button:hover {
+  background: #f5f5f5;
+  color: #333;
+  transform: translateX(-2px);
 }

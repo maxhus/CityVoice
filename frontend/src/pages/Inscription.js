@@ -90,6 +90,12 @@ export default function Inscription() {
   return (
     <div className="login-container">
       <div className="login-card">
+        <button 
+          onClick={() => navigate(-1)} 
+          className="back-button"
+        >
+          ←
+        </button>
         <div className="login-header">
           <div className="login-logo">🏛️</div>
           <h1>Créer un compte</h1>
