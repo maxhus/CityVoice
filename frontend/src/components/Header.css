@@ -93,10 +93,35 @@
   border-radius: 20px;
   font-weight: 500;
   transition: background 0.3s;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-connexion:hover {
   background: #555;
+}
+
+.user-info {
+  color: #333;
+  font-weight: 500;
+  margin-right: 1rem;
+  font-size: 0.95rem;
+}
+
+.btn-logout {
+  color: white;
+  background: #dc3545;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: background 0.3s;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.btn-logout:hover {
+  background: #c82333;
 }
 
 @media (max-width: 768px) {

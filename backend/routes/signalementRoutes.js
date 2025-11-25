@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middleware/auth');
 const {
   getAllSignalements,
   getSignalementById,
@@ -16,10 +17,9 @@ router.get('/stats', getStatistiques);
 router.get('/:id', getSignalementById);
 
 // Routes protégées (nécessitent authentification)
-// TODO: Ajouter middleware auth
-router.post('/', createSignalement);
-router.put('/:id', updateSignalement);
-router.delete('/:id', deleteSignalement);
-router.get('/citoyen/:id', getSignalementsByCitoyen);
+router.post('/', authMiddleware, createSignalement);
+router.put('/:id', authMiddleware, updateSignalement);
+router.delete('/:id', authMiddleware, deleteSignalement);
+router.get('/citoyen/:id', authMiddleware, getSignalementsByCitoyen);
 
 module.exports = router;

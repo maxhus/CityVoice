@@ -1,0 +1,46 @@
+﻿# RAPPORT DE COHÉRENCE FRONTEND-BACKEND
+
+## 1. Champs du modèle Signalement (base de données):
+- id_signalement
+- titre
+- description
+- categorie
+- statut
+- priorite
+- latitude
+- longitude
+- adresse
+- quartier
+- date_soumission
+- date_resolution
+- id_citoyen
+- id_admin_assigne
+- note_admin
+
+## 2. Champs envoyés par le Frontend (Signalement.js):
+- titre 
+- description 
+- categorie 
+- latitude 
+- longitude 
+- adresse 
+- quartier 
+- id_citoyen 
+
+## 3. Champs attendus par le Backend (createSignalement):
+- description 
+- categorie 
+- id_citoyen 
+
+## PROBLÈMES DÉTECTÉS:
+
+###  INCOHÉRENCE CRITIQUE:
+- Le frontend envoie 'titre' mais le backend NE LE TRAITE PAS
+- Le frontend envoie latitude/longitude mais le backend NE LES TRAITE PAS
+- Le frontend envoie adresse/quartier mais le backend NE LES TRAITE PAS
+- La base de données a un champ 'titre' OBLIGATOIRE (NOT NULL)
+- Le modèle Sequelize NE CONTIENT PAS les champs: titre, latitude, longitude, adresse, quartier
+
+### Solution requise:
+1. Mettre à jour le modèle Signalement.js pour inclure TOUS les champs
+2. Mettre à jour le controller createSignalement pour traiter TOUS les champs

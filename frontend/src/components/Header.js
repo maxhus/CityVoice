@@ -1,9 +1,17 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Header.css";
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <header className="header">
@@ -40,12 +48,25 @@ const Header = () => {
 
         <div className="header-actions">
           <button className="menu-btn">☰</button>
-          <Link to="/inscription" className="btn-inscription">
-            Inscription
-          </Link>
-          <Link to="/connexion" className="btn-connexion">
-            Connexion
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <span className="user-info">
+                👤 {user?.prenom_citoyen} {user?.nom_citoyen}
+              </span>
+              <button onClick={handleLogout} className="btn-logout">
+                Déconnexion
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/inscription" className="btn-inscription">
+                Inscription
+              </Link>
+              <Link to="/connexion" className="btn-connexion">
+                Connexion
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

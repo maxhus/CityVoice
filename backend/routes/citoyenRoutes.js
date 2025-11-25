@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middleware/auth');
 const {
   inscription,
   connexion,
@@ -12,8 +13,7 @@ router.post('/inscription', inscription);
 router.post('/connexion', connexion);
 
 // Routes protégées (nécessitent authentification)
-// TODO: Ajouter middleware auth
-router.get('/profil/:id', getProfil);
-router.put('/profil/:id', updateProfil);
+router.get('/profil/:id', authMiddleware, getProfil);
+router.put('/profil/:id', authMiddleware, updateProfil);
 
 module.exports = router;
