@@ -260,22 +260,33 @@ exports.getSignalementsByCitoyen = async (req, res) => {
 exports.getStatistiques = async (req, res) => {
   try {
     const total = await Signalement.count();
-    const parStatut = await Signalement.findAll({
+    const statutsData = await Signalement.findAll({
       attributes: ['statut', [sequelize.fn('COUNT', sequelize.col('id_signalement')), 'count']],
-      group: ['statut']
+      group: ['statut'],
+      raw: true
     });
-    const parCategorie = await Signalement.findAll({
+    const categoriesData = await Signalement.findAll({
       attributes: ['categorie', [sequelize.fn('COUNT', sequelize.col('id_signalement')), 'count']],
-      group: ['categorie']
+      group: ['categorie'],
+      raw: true
+    });
+
+    // Transformer en objet pour faciliter l'accès
+    const parStatut = {};
+    statutsData.forEach(item => {
+      parStatut[item.statut] = parseInt(item.count);
+    });
+
+    const parCategorie = {};
+    categoriesData.forEach(item => {
+      parCategorie[item.categorie] = parseInt(item.count);
     });
 
     res.json({
       success: true,
-      data: {
-        total,
-        parStatut,
-        parCategorie
-      }
+      total,
+      parStatut,
+      parCategorie
     });
   } catch (error) {
     console.error('Erreur getStatistiques:', error);

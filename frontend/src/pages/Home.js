@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import SearchBar from "../components/SearchBar";
 import MapView from "../components/MapView";
 import ReportCard from "../components/ReportCard";
 import reportService from "../services/reportService";
@@ -10,7 +9,6 @@ function Home() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     loadReports();
@@ -52,15 +50,15 @@ function Home() {
         {
           id_signalement: 1,
           title: "Nid de poule",
-          category: "Infrastructure",
+          category: "Voirie",
           status: "en cours",
           description: "Gros nid de poule dangereux pour les véhicules",
           time: "5 minutes passées",
           duration: "Depuis 1 heure",
-          latitude: 48.8566,
-          longitude: 2.3522,
-          adresse: "15 Rue de Rivoli",
-          quartier: "1er arrondissement"
+          latitude: 50.8503,
+          longitude: 4.3517,
+          adresse: "Boulevard Anspach, 1000 Bruxelles",
+          quartier: "Centre"
         },
         {
           id_signalement: 2,
@@ -70,23 +68,23 @@ function Home() {
           description: "Poubelle pleine non collectée depuis plusieurs jours",
           time: "10 minutes passées",
           duration: "Depuis 3 heures",
-          latitude: 48.8606,
-          longitude: 2.3376,
-          adresse: "23 Avenue des Champs-Élysées",
-          quartier: "8ème arrondissement"
+          latitude: 50.8467,
+          longitude: 4.3525,
+          adresse: "Place de la Bourse, 1000 Bruxelles",
+          quartier: "Centre"
         },
         {
           id_signalement: 3,
           title: "Lampadaire cassé",
-          category: "Sécurité",
+          category: "Éclairage",
           status: "signalé",
           description: "Éclairage public défectueux depuis 2 jours",
           time: "1 heure passée",
           duration: "Depuis 2 jours",
-          latitude: 48.8698,
-          longitude: 2.3078,
-          adresse: "42 Avenue Foch",
-          quartier: "16ème arrondissement"
+          latitude: 50.8429,
+          longitude: 4.3618,
+          adresse: "Avenue Louise, 1050 Ixelles",
+          quartier: "Ixelles"
         },
         {
           id_signalement: 4,
@@ -96,23 +94,23 @@ function Home() {
           description: "Tag sur le mur du bâtiment municipal",
           time: "2 heures passées",
           duration: "Résolu aujourd'hui",
-          latitude: 48.8534,
-          longitude: 2.3488,
-          adresse: "8 Place de la Bastille",
-          quartier: "11ème arrondissement"
+          latitude: 50.8371,
+          longitude: 4.3676,
+          adresse: "Chaussée d'Ixelles, 1050 Ixelles",
+          quartier: "Ixelles"
         },
         {
           id_signalement: 5,
           title: "Fuite d'eau",
-          category: "Infrastructure",
+          category: "Voirie",
           status: "en cours",
           description: "Fuite importante sur la voie publique",
           time: "30 minutes passées",
           duration: "Depuis 5 heures",
-          latitude: 48.8584,
-          longitude: 2.2945,
-          adresse: "12 Avenue de la Grande Armée",
-          quartier: "17ème arrondissement"
+          latitude: 50.8548,
+          longitude: 4.3452,
+          adresse: "Rue Neuve, 1000 Bruxelles",
+          quartier: "Centre"
         }
       ];
       
@@ -125,17 +123,6 @@ function Home() {
       setLoading(false);
     }
   };
-
-  const handleSearch = (searchValue) => {
-    setSearchTerm(searchValue);
-  };
-
-  // Filtrer les signalements par recherche
-  const filteredReports = reports.filter(report => 
-    report.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    report.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    report.category?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   if (loading) {
     return (
@@ -163,16 +150,15 @@ function Home() {
   return (
     <div className="home">
       <Header />
-      <SearchBar onSearch={handleSearch} />
 
       <div className="home-content">
         <div className="map-section">
-          <MapView reports={filteredReports} />
+          <MapView reports={reports} />
         </div>
 
         <div className="reports-section">
           <h2 className="reports-title">
-            Signalements ({filteredReports.length})
+            Signalements ({reports.length})
           </h2>
           <p className="reports-subtitle">
             {new Date().toLocaleDateString('fr-FR', { 
@@ -183,13 +169,13 @@ function Home() {
             })}
           </p>
           <div className="reports-list">
-            {filteredReports.length > 0 ? (
-              filteredReports.map((report) => (
+            {reports.length > 0 ? (
+              reports.map((report) => (
                 <ReportCard key={report.id_signalement} report={report} />
               ))
             ) : (
               <p style={{ textAlign: 'center', padding: '2rem' }}>
-                {searchTerm ? 'Aucun signalement trouvé' : 'Aucun signalement disponible'}
+                Aucun signalement disponible
               </p>
             )}
           </div>
