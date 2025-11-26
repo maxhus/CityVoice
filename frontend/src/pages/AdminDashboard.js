@@ -21,6 +21,7 @@ function AdminDashboard() {
     }
 
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const loadData = async () => {

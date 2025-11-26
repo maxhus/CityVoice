@@ -160,8 +160,6 @@ export default function Signalement() {
     }
   };
 
-  const mockReports = [];
-
   // Afficher un loader pendant le chargement de l'authentification
   if (authLoading) {
     return (
