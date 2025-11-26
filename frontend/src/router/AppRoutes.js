@@ -6,6 +6,8 @@ import Connexion from "../pages/Connexion";
 import Inscription from "../pages/Inscription";
 import Signalement from "../pages/Signalement";
 import SignalementDetails from "../pages/SignalementDetails";
+import AdminLogin from "../pages/AdminLogin";
+import AdminDashboard from "../pages/AdminDashboard";
 // import Dashboard from '../pages/Dashboard';
 // import ReportForm from '../pages/ReportForm';
 // import MapView from '../pages/MapView';
@@ -30,6 +32,8 @@ const AppRoutes = () => {
       <Route path="/inscription" element={<Inscription />} />
       <Route path="/signalement" element={<Signalement />} />
       <Route path="/signalement/:id" element={<SignalementDetails />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
       {/* <Route 
         path="/dashboard" 
         element={

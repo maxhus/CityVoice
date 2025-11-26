@@ -18,11 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 const signalementRoutes = require('./routes/signalementRoutes');
 const citoyenRoutes = require('./routes/citoyenRoutes');
 const commentaireRoutes = require('./routes/commentaireRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 // Routes API
 app.use('/api/signalements', signalementRoutes);
 app.use('/api/citoyens', citoyenRoutes);
 app.use('/api/commentaires', commentaireRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Route de test
 app.get('/', (req, res) => {
@@ -32,7 +34,8 @@ app.get('/', (req, res) => {
     endpoints: {
       signalements: '/api/signalements',
       citoyens: '/api/citoyens',
-      commentaires: '/api/commentaires'
+      commentaires: '/api/commentaires',
+      admin: '/api/admin'
     }
   });
 });

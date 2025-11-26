@@ -22,6 +22,8 @@ export default function Signalement() {
   const [longitude, setLongitude] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [mapCenter, setMapCenter] = useState(null);
 
   // Catégories disponibles
   const categories = [
@@ -52,6 +54,50 @@ export default function Signalement() {
       navigate("/connexion");
     }
   }, [authLoading, isAuthenticated, navigate]);
+
+  const handleAddressSearch = async () => {
+    if (!recherche.trim()) {
+      alert("Veuillez entrer une adresse");
+      return;
+    }
+
+    setSearchLoading(true);
+    try {
+      // Utiliser l'API Nominatim d'OpenStreetMap pour le géocodage
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(recherche)}&countrycodes=be&limit=1`
+      );
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const result = data[0];
+        const lat = parseFloat(result.lat);
+        const lon = parseFloat(result.lon);
+        
+        setLatitude(result.lat);
+        setLongitude(result.lon);
+        setAdresse(result.display_name);
+        setMapCenter([lat, lon]); // Recentrer la carte
+        
+        // Extraire le quartier si possible
+        if (result.address) {
+          const quartierPossible = result.address.suburb || result.address.neighbourhood || result.address.quarter || "";
+          if (quartierPossible) {
+            setQuartier(quartierPossible);
+          }
+        }
+        
+        alert("Adresse trouvée et localisée sur la carte !");
+      } else {
+        alert("Adresse non trouvée. Veuillez vérifier l'orthographe.");
+      }
+    } catch (err) {
+      console.error("Erreur lors de la recherche d'adresse:", err);
+      alert("Erreur lors de la recherche d'adresse");
+    } finally {
+      setSearchLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -135,16 +181,47 @@ export default function Signalement() {
       <div className="signalement-container">
         <div className="signalement-box">
           <div className="signalement-left">
-            <input
-              type="text"
-              placeholder="Recherche adresse"
-              className="search-input"
-              value={recherche}
-              onChange={(e) => setRecherche(e.target.value)}
-            />
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+              <input
+                type="text"
+                placeholder="Recherche adresse (ex: Boulevard Saint Michel, 49, Bruxelles)"
+                className="search-input"
+                value={recherche}
+                onChange={(e) => setRecherche(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleAddressSearch()}
+                style={{ flex: 1 }}
+              />
+              <button
+                onClick={handleAddressSearch}
+                disabled={searchLoading}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  backgroundColor: '#667eea',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: searchLoading ? 'not-allowed' : 'pointer',
+                  fontWeight: '500',
+                  opacity: searchLoading ? 0.6 : 1
+                }}
+              >
+                {searchLoading ? '🔍...' : '🔍 Rechercher'}
+              </button>
+            </div>
 
             <div className="map-wrapper">
-              <MapView reports={mockReports} showNewReportButton={false} />
+              <MapView 
+                reports={latitude && longitude ? [{
+                  id_signalement: 'temp',
+                  title: 'Position sélectionnée',
+                  category: categorie || 'Non défini',
+                  latitude: parseFloat(latitude),
+                  longitude: parseFloat(longitude),
+                  adresse: adresse || 'Position actuelle'
+                }] : []} 
+                showNewReportButton={false}
+                center={mapCenter}
+              />
             </div>
 
             <div style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#666' }}>

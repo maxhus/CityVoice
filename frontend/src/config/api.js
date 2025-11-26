@@ -15,8 +15,13 @@ const api = axios.create({
 // Intercepteur pour ajouter le token JWT aux requêtes
 api.interceptors.request.use(
   (config) => {
+    // Vérifier d'abord le token admin, puis le token citoyen
+    const adminToken = localStorage.getItem('adminToken');
     const token = localStorage.getItem('token');
-    if (token) {
+    
+    if (adminToken) {
+      config.headers.Authorization = `Bearer ${adminToken}`;
+    } else if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;

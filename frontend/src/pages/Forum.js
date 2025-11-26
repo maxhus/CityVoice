@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
 import ForumCard from '../components/ForumCard';
 import reportService from '../services/reportService';
@@ -174,11 +173,6 @@ function Forum() {
     ? discussions 
     : discussions.filter(d => d.category.toLowerCase() === activeCategory.toLowerCase());
 
-  const handleSearch = (searchValue) => {
-    console.log('Recherche forum:', searchValue);
-    // TODO: Implémenter la recherche
-  };
-
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
   };
@@ -218,8 +212,6 @@ function Forum() {
       </div>
 
       <div className="forum-container">
-        <SearchBar onSearch={handleSearch} />
-        
         <CategoryFilter 
           categories={categories}
           activeCategory={activeCategory}

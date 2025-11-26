@@ -47,7 +47,9 @@ const Header = () => {
         </nav>
 
         <div className="header-actions">
-          <button className="menu-btn">☰</button>
+          {isAuthenticated && user?.email_citoyen?.endsWith('@cityvoice.be') && (
+            <button className="menu-btn" onClick={() => navigate('/admin/login')}>☰</button>
+          )}
           {isAuthenticated ? (
             <>
               <span className="user-info">

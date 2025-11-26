@@ -11,6 +11,12 @@ const useGeoLocation = () => {
   useEffect(() => {
     if (!navigator.geolocation) {
       setError('La géolocalisation n\'est pas supportée par votre navigateur');
+      // Utiliser Bruxelles par défaut
+      setLocation({
+        latitude: 50.8503,
+        longitude: 4.3517,
+        accuracy: null
+      });
       setLoading(false);
       return;
     }
@@ -26,6 +32,12 @@ const useGeoLocation = () => {
       },
       (err) => {
         setError(err.message);
+        // Utiliser Bruxelles par défaut en cas d'erreur
+        setLocation({
+          latitude: 50.8503,
+          longitude: 4.3517,
+          accuracy: null
+        });
         setLoading(false);
       }
     );

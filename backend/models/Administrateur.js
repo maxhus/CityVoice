@@ -34,6 +34,11 @@ const Administrateur = sequelize.define('Administrateur', {
       model: 'service_municipal',
       key: 'id_service'
     }
+  },
+  role: {
+    type: DataTypes.STRING(20),
+    allowNull: true,
+    defaultValue: 'moderateur'
   }
 }, {
   tableName: 'administrateur',
