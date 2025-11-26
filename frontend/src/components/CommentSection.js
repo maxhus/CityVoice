@@ -11,12 +11,6 @@ function CommentSection({ signalementId }) {
   const [error, setError] = useState('');
 
   // Charger les commentaires
-  useEffect(() => {
-    if (signalementId) {
-      chargerCommentaires();
-    }
-  }, [signalementId]);
-
   const chargerCommentaires = async () => {
     try {
       const response = await api.get(`/commentaires/signalement/${signalementId}`);
@@ -25,6 +19,13 @@ function CommentSection({ signalementId }) {
       console.error('Erreur lors du chargement des commentaires:', err);
     }
   };
+
+  useEffect(() => {
+    if (signalementId) {
+      chargerCommentaires();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signalementId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

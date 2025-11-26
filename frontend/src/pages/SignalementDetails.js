@@ -22,10 +22,6 @@ function SignalementDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    chargerSignalement();
-  }, [id]);
-
   const chargerSignalement = async () => {
     try {
       setLoading(true);
@@ -38,6 +34,11 @@ function SignalementDetails() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    chargerSignalement();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const getCategoryIcon = (categorie) => {
     const icons = {

@@ -75,6 +75,7 @@ function Forum() {
   };
 
   // Données de test pour les discussions
+  // eslint-disable-next-line no-unused-vars
   const mockDiscussions = [
     {
       id: 1,
